@@ -67,13 +67,13 @@
       </nav>
       <div class="row mt-5">
         <div class="col-md-6">
-          <h1 class="fw-bold mb-4">Upload a Voice Sample to predict gender</h1>
+          <h1 class="fw-bold mb-4">Upload a Voice Sample to Predict the Gender</h1>
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
               <input type="file" class="form-control border-0 rounded-pill fs-5" name="audio_file">
             </div>
-            <h1 class="fw-bold mb-4">Upload an image</h1>
+            <h1 class="fw-bold mb-4">Upload the Image</h1>
             {% csrf_token %}
             <div class="mb-3">
               <input type="file" class="form-control border-0 rounded-pill fs-5" name="image_file">
