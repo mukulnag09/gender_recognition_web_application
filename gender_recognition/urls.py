@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.urls import path
 from recognizer.views import gender_prediction
+from recognizer.views import about
 urlpatterns = [
     path('gender_prediction/', gender_prediction, name='gender_prediction'),
+    path('about',about, name='about'),
+    path('',about, name='about'),
 ]

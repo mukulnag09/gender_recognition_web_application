@@ -56,7 +56,7 @@
                 <a class="nav-link active fw-bold" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold" href="#">New Session</a>
+                <a class="nav-link fw-bold" href="">New Session</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-bold" href="#">Save Session</a>
@@ -67,11 +67,16 @@
       </nav>
       <div class="row mt-5">
         <div class="col-md-6">
-          <h1 class="fw-bold mb-5">Upload a Voice Sample to predict gender</h1>
+          <h1 class="fw-bold mb-4">Upload a Voice Sample to predict gender</h1>
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
               <input type="file" class="form-control border-0 rounded-pill fs-5" name="audio_file">
+            </div>
+            <h1 class="fw-bold mb-4">Upload an image</h1>
+            {% csrf_token %}
+            <div class="mb-3">
+              <input type="file" class="form-control border-0 rounded-pill fs-5" name="image_file">
             </div>
             <div class="d-grid">
               <button type="submit" class="btn btn-primary rounded-pill fs-5 fw-bold" value="Submit">Predict</button>
@@ -79,47 +84,68 @@
           </form>
         </div>
         <div class="col-md-6">
-          <h1 class="fw-bold mb-5">Sample Images</h1>
           <div class="row">
             <div class="col-md-4 mb-4">
                 {% load static %}
               <img src="{% static 'images/sample-1.jpg' %}"  class="img-fluid rounded-3">
-              <p class="text-center fw-bold mt-3">Gender: Male<br>Age: 25</p>
+              <p class="text-center fw-bold mb-4">Gender: Male<br>Age: 25</p>
             </div>
             <div class="col-md-4 mb-4">
                 {% load static %}
               <img src="{% static 'images/sample-2.jpg' %}" alt="Sample 2" class="img-fluid rounded-3">
-              <p class="text-center fw-bold mt-3">Gender: Female<br>Age: 32</p>
+              <p class="text-center fw-bold mb-4">Gender: Female<br>Age: 32</p>
             </div>
             <div class="col-md-4 mb-4">
                 {% load static %}
               <img src="{% static 'images/sample-3.jpg' %}" alt="Sample 3" class="img-fluid rounded-3">
-              <p class="text-center fw-bold mt-3">Gender: Female<br>Age: 34</p>
+              <p class="text-center fw-bold mb-4">Gender: Female<br>Age: 34</p>
               </div>
               {% load static %}<script>
                 // Define an array of image sources
                 var imageSources = [
-                "{% static 'images/sample-3.jpg' %}",
-                "{% static 'images/sample-2.jpg' %}",
-                "{% static 'images/sample-1.jpg' %}",
-                "{% static 'images/sample-4.jpg' %}",
-                "{% static 'images/sample-5.jpg' %}",
-                "{% static 'images/sample-6.jpg' %}",
-                "{% static 'images/sample-7.jpg' %}",
-                "{% static 'images/sample-8.jpg' %}",
-                "{% static 'images/sample-9.jpg' %}",
-                "{% static 'images/sample-10.jpg' %}",
-                "{% static 'images/sample-11.jpg' %}",
-                "{% static 'images/sample-12.jpg' %}",
-                "{% static 'images/sample-13.jpg' %}",
-                "{% static 'images/sample-14.jpg' %}",
-                "{% static 'images/sample-15.jpg' %}",
-                "{% static 'images/sample-16.jpg' %}",
-                "{% static 'images/sample-17.jpg' %}",
-                "{% static 'images/sample-18.jpg' %}",
-                "{% static 'images/sample-19.jpg' %}",
-                "{% static 'images/sample-20.jpg' %}",
-                "{% static 'images/sample-21.jpg' %}",
+                {src:"{% static 'images/sample-1.jpg' %}",
+              caption:"Male age: 21"},
+                {src:"{% static 'images/sample-2.jpg' %}",
+              caption: "Female age 18"},
+                {src:"{% static 'images/sample-3.jpg' %}",
+              caption: "Female age 30"},
+                {src:"{% static 'images/sample-4.jpg' %}",
+              caption: "Male age 34"},
+                {src:"{% static 'images/sample-5.jpg' %}",
+              caption: "Female age 16"},
+                {src:"{% static 'images/sample-6.jpg' %}",
+              caption: "Female age 28"},
+                {src:"{% static 'images/sample-7.jpg' %}",
+              caption: "Female age 26"},
+                {src:"{% static 'images/sample-8.jpg' %}",
+              caption: "Male age 38"},
+                {src:"{% static 'images/sample-9.jpg' %}",
+              caption: "Female age 31"},
+                {src:"{% static 'images/sample-10.jpg' %}",
+              caption: "Female age 20"},
+                {src:"{% static 'images/sample-11.jpg' %}",
+              caption: "Female age 22"},
+                {src:"{% static 'images/sample-12.jpg' %}",
+              caption: "Male age 41"},
+                {src:"{% static 'images/sample-13.jpg' %}",
+              caption: "Male age 43"},
+                {src:"{% static 'images/sample-14.jpg' %}",
+              caption: "Male age 18"},
+                {src:"{% static 'images/sample-15.jpg' %}",
+              caption: "Female age 18"},
+                {src:"{% static 'images/sample-16.jpg' %}",
+              caption: "Male age 26"},
+                {src:"{% static 'images/sample-17.jpg' %}",
+              caption: "Male age 56"},
+                {src:"{% static 'images/sample-18.jpg' %}",
+              caption: "Female age 12"},
+                {src:"{% static 'images/sample-19.jpg' %}",
+              caption: "Male age 27"},
+                {src:"{% static 'images/sample-20.jpg' %}",
+              caption: "Male age 35"},
+                {src:"{% static 'images/sample-21.jpg' %}",
+              caption: "Male age 14"},
+                
               ];
 
 
@@ -136,10 +162,11 @@
 
               // Find all the image elements in the page
               var images = document.getElementsByTagName('img');
-
+              var imageElements = document.getElementsByClassName('text-center fw-bold mb-4');
               // Loop through each image and set its src to a random image source
               for (var i = 0; i < images.length; i++) {
-                images[i].src = imageSources[i];
+                images[i].src = imageSources[i].src;
+                imageElements[i].innerText = imageSources[i].caption
               }
                 
                     </script>

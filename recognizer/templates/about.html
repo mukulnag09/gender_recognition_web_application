@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <title>Gender Prediction</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
+    <style>
+        .gender-label {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+        body {
+          background: linear-gradient(50deg,  #ecbe4c,#fa805b, #E73C7E, #0fa2d7, #23D5AB, #8437ef);
+          background-size: 400% 400%;
+          animation: gradient 20s ease infinite;
+        }
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        /* Add 3D effect and shadow to the result container */
+      .container {
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        transform: perspective(1000px) rotateY(0deg);
+      }
+    
+        /* Add 3D effect and shadow to the result container */
+
+      /* Add 3D effect and shadow to the uploaded image */
+      .img {
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        transform: perspective(100px) rotateX(-0deg);
+      }
+      .heading{
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      </style>  
+</head>
+  <body >
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3 fw-bold" href="#">Gender Prediction</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active fw-bold" aria-current="page" href="gender_prediction/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="gender_prediction/">New Session</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="">Save Session</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+        <div class="col-center-6"><h1 class="fw-bold center-5">About Gender Recognition</h1>
+            <div class="mb-5">
+                <p class="gender-label" >For this python project, I had used the Adience dataset; the dataset is available in the public domain and you can find it here. This dataset serves as a benchmark for face photos and is inclusive of various real-world imaging conditions like noise, lighting, pose, and appearance. The images have been collected from Flickr albums and distributed under the Creative Commons (CC) license. It has a total of 26,580 photos of 2,284 subjects in eight age ranges (as mentioned above) and is about 1GB in size. The models I used had been trained on this dataset.</p>
+                <pre class="gender-label"><h1 class="heading">Requirements:</h1>
+                TensorFlow 2.x.x, Scikit-learn, Numpy
+                Pandas, PyAudio, Librosa</pre>
+            </div>
+            <div class="mb-6">
+                <h1 class="heading">Dataset used:</h1><p class="gender-label">
+                    Mozilla's Common Voice large dataset is used here, and some preprocessing has been performed:
+                    
+                    Filtered out invalid samples.
+                    Filtered only the samples that are labeled in genre field.
+                    Balanced the dataset so that number of female samples are equal to male.
+                    Used Mel Spectrogram feature extraction technique to get a vector of a fixed length from each voice sample, the data folder contain only the features and not the actual mp3 samples (the dataset is too large, about 13GB).
+                    If you wish to download the dataset and extract the features files (.npy files) on your own, preparation.py is the responsible script for that, once you unzip it, put preparation.py in the root directory of the dataset and run it.
+                    
+                    This will take sometime to extract features from the audio files and generate new .csv files.</p>
+            </div>
+            <div class="mb-6">
+                <h1 class="heading">Training :</h1><p class="gender-label">You can customize your model in utils.py file under the create_model() function and then run:
+
+                    python train.py
+                    </p>
+            </div>
+            <div class="mb-6">
+                <h1 class="heading">Testing :</h1><p class="gender-label">test.py is the code responsible for testing your audio files or your voice:
+
+                    python test.py --help
+                    Output:
+                    
+                    usage: test.py [-h] [-f FILE]
+                    
+                    Gender recognition script, this will load the model you trained, and perform
+                    inference on a sample you provide (either using your voice or a file)
+                    
+                    optional arguments:
+                    -h, --help            show this help message and exit
+                    -f FILE, --file FILE  The path to the file, preferred to be in WAV format
+                    For instance, to get gender of the file test-samples/27-124992-0002.wav, you can:
+                    
+                    python test.py --file "test-samples/27-124992-0002.wav"
+                    Output:
+                    
+                    Result: male
+                    Probabilities:     Male: 96.36%    Female: 3.64%
+                    There are some audio samples in test-samples folder for you to test with, it is grabbed from LibriSpeech dataset.
+                    </p>
+            </div>
+    </div>
+    </body>
+  </html>

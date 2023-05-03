@@ -65,10 +65,10 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active fw-bold" aria-current="page" href="#">Home</a>
+                <a class="nav-link active fw-bold" aria-current="page" href="">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold" href="#">New Session</a>
+                <a class="nav-link fw-bold" href="">New Session</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link fw-bold" href="#">Save Session</a>
@@ -81,26 +81,121 @@
         <div class="col-md-6">
           <h1 class="fw-bold mb-5">Result</h1>
           <div class="mb-3">
-            <p class="gender-label">Gender: {{gender}}</p>
+            <p class="gender-label" >Gender: {{gender}}</p>
             <p class="gender-label">Male Probability : {{ male_prob }}</p>
             <p class="gender-label">Female Probability : {{ female_prob }}</p>
+            <p class="gender-label">Image Probability : {{image}}</p>
           </div>
+        </div>
           <div class="col-md-6">
             <h1 class="fw-bold mb-5">Result Graphs</h1>
             <div class="row">
               <div class="col-md-4 mb-4">
                   {% load static %}
-                <img src="{% static 'images/sample-1.jpg' %}"  class="img-fluid rounded-3"> 
+                <img src="{% static 'images/sample-1.jpg' %}"  id="imgmod" class="img-fluid rounded-3"> 
+                <p class="text-center fw-bold mb-4" id="gender1">{{gender}} {{age1}}</p>
               </div>
-              <div class="col-md-6 mb-6">
+              <div class="col-md-4 mb-4">
                   {% load static %}
                 <img src="{% static 'images/Spectrum.png' %}" alt="Sample 2" class="img-fluid rounded-3">
               </div>
-              <div class="col-md-6 mb-6">
+              <div class="col-md-4 mb-4">
                   {% load static %}
                 <img src="{% static 'images/Signal.png' %}" alt="Sample 3" class="img-fluid rounded-3">
-                </div>
-        </div>
+          </div>
+          {% load static %}<script>
+            // Define an array of image sources
+            var imageSources = [
+            {src:"{% static 'images/sample-1.jpg' %}",
+          caption:"Male age: 21"},
+            {src:"{% static 'images/sample-2.jpg' %}",
+          caption: "Female age 18"},
+            {src:"{% static 'images/sample-3.jpg' %}",
+          caption: "Female age 30"},
+            {src:"{% static 'images/sample-4.jpg' %}",
+          caption: "Male age 34"},
+            {src:"{% static 'images/sample-5.jpg' %}",
+          caption: "Female age 16"},
+            {src:"{% static 'images/sample-6.jpg' %}",
+          caption: "Female age 28"},
+            {src:"{% static 'images/sample-7.jpg' %}",
+          caption: "Female age 26"},
+            {src:"{% static 'images/sample-8.jpg' %}",
+          caption: "Male age 38"},
+            {src:"{% static 'images/sample-9.jpg' %}",
+          caption: "Female age 31"},
+            {src:"{% static 'images/sample-10.jpg' %}",
+          caption: "Female age 20"},
+            {src:"{% static 'images/sample-11.jpg' %}",
+          caption: "Female age 22"},
+            {src:"{% static 'images/sample-12.jpg' %}",
+          caption: "Male age 41"},
+            {src:"{% static 'images/sample-13.jpg' %}",
+          caption: "Male age 43"},
+            {src:"{% static 'images/sample-14.jpg' %}",
+          caption: "Male age 18"},
+            {src:"{% static 'images/sample-15.jpg' %}",
+          caption: "Female age 18"},
+            {src:"{% static 'images/sample-16.jpg' %}",
+          caption: "Male age 26"},
+            {src:"{% static 'images/sample-17.jpg' %}",
+          caption: "Male age 56"},
+            {src:"{% static 'images/sample-18.jpg' %}",
+          caption: "Female age 12"},
+            {src:"{% static 'images/sample-19.jpg' %}",
+          caption: "Male age 27"},
+            {src:"{% static 'images/sample-20.jpg' %}",
+          caption: "Male age 35"},
+            {src:"{% static 'images/sample-21.jpg' %}",
+          caption: "Male age 14"},
+            
+          ];
+          
+          var images = document.getElementById("imgmod")
+          var gender1 = document.getElementById('gender1').innerHTML;
+          const regex1 = /\d*\d/;
+          const regex2 = /\w/;
+          var gender_age=regex1.exec(gender1)[0]
+          var gender_name=regex2.exec(gender1)[0]
+          if(gender_name=="F" && gender_age=="25") { 
+          images.src = "{% static 'images/sample-3.jpg' %}";
+          }
+          else if(gender_name=="F" && (gender_age=="8" || gender_age=="0" || gender_age=="4" )) { 
+          images.src = "{% static 'images/sample-17.jpg' %}";
+          }
+          else if(gender_name=="F" && gender_age=="15") { 
+          images.src = "{% static 'images/sample-2.jpg' %}";
+          }
+          else if(gender_name=="F" && gender_age=="38") { 
+          images.src = "{% static 'images/sample-7.jpg' %}";
+          }
+          else if(gender_name=="F" && gender_age=="48") { 
+          images.src = "{% static 'images/sample-10.jpg' %}";
+          }
+          else if(gender_name=="F" && gender_age=="60") { 
+          images.src = "{% static 'images/sample-9.jpg' %}";
+          }
+          if(gender_name=="M" && gender_age=="25") { 
+          images.src = "{% static 'images/sample-4.jpg' %}";
+          }
+          else if(gender_name=="M" && (gender_age=="8" || gender_age=="0" || gender_age=="4" )) { 
+          images.src = "{% static 'images/sample-20.jpg' %}";
+          }
+          else if(gender_name=="M" && gender_age=="15") { 
+          images.src = "{% static 'images/sample-8.jpg' %}";
+          }
+          else if(gender_name=="M" && gender_age=="38") { 
+          images.src = "{% static 'images/sample-19.jpg' %}";
+          }
+          else if(gender_name=="M" && gender_age=="48") { 
+          images.src = "{% static 'images/sample-13.jpg' %}";
+          }
+          else if(gender_name=="M" && gender_age=="60") { 
+          images.src = "{% static 'images/sample-16.jpg' %}";
+          }
+          
+        </script>
+
       </div>
     </div>
   </body>
