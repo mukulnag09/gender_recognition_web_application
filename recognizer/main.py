@@ -97,7 +97,7 @@ def mains(files):
             age=ageList[agePreds[0].argmax()]
             print(f'Age: {age[1:-1]} years')
             age1=f'{age[1:-1]}'
-            s=str(f'Gender {gender} & Age: {age[1:-1]} years ')
+            s=str(f'Gender {gender} & Age {age[1:-1]} years ')
             #cv2.putText(resultImg, f'{gender}, {age}', (faceBox[0], faceBox[1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,255), 2, cv2.LINE_AA)
             return [s,age1]
         #cv2.imshow("Detecting age and gender", resultImg)
