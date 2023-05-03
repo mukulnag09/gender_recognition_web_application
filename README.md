@@ -11,7 +11,7 @@ This repository is about building a deep learning model using TensorFlow 2 to re
 
 Cloning the repository:
 
-    git clone https://github.com/x4nth055/gender-recognition-by-voice
+    git clone https://github.com/mukulnag09/gender-recognition-by-voice
 
 Installing the required libraries:
 
