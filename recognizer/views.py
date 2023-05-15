@@ -10,6 +10,35 @@ import os
 def about(request):
     return render(request, 'about.html')
 
+def gender_voice(request):
+     
+    if request.method == 'POST':
+        file =  request.FILES['audio_file']
+        if file is None:
+            return HttpResponse("Please upload an audio file")
+        
+
+
+        model = create_model()
+        model.load_weights("results/model.h5")
+        features = extract_feature(file, mel=True).reshape(1, -1)
+        male_prob = model.predict(features)[0][0]
+        female_prob = 1 - male_prob
+        if male_prob>.8:
+            gender = "Male"
+        elif male_prob>.3:
+            gender = "Transgender"
+        else :
+            gender ="Female"
+        # return the result
+        result = f"Gender: {gender}, Male Probability: {male_prob*100:.2f}%, Female Probability: {female_prob*100:.2f}%"
+        male_prob=f"{male_prob*100:.2f}"
+        female_prob=f"{female_prob*100:.2f}"
+
+        return render(request, 'voice/result_voice.html', {'gender': gender,'male_prob':male_prob,'female_prob':female_prob})
+    return render(request, 'voice/gender_voice.html')
+
+
 
 def gender_prediction(request):
     

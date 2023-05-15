@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gender Prediction - Result</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        body {
+          background: linear-gradient(50deg,  #ecbe4c,#fa805b, #E73C7E, #0fa2d7, #23D5AB, #8437ef);
+          background-size: 400% 400%;
+          animation: gradient 20s ease infinite;
+        }
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        /* Add 3D effect and shadow to the result container */
+      .container {
+        border-radius: 20px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        transform: perspective(1000px) rotateY(0deg);
+      }
+
+      /* Add 3D effect and shadow to the uploaded image */
+      img {
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        transform: perspective(100px) rotateX(0deg);
+      }
+      /* Style the gender and age labels */
+      .gender-label, .age-label {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      /* Style the gender and age values */
+      .gender-value, .age-value {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      
+      </style>    
+</head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-3">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3 fw-bold" href="#">Gender Prediction</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active fw-bold" aria-current="page" href="gender_prediction">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="">New Session</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold" href="">Voice Detection Session</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h1 class="fw-bold mb-5">Result</h1>
+          <div class="mb-3">
+            <p class="gender-label" >Gender: {{gender}}</p>
+            <p class="gender-label">Male Probability : {{ male_prob }}</p>
+            <p class="gender-label">Female Probability : {{ female_prob }}</p>
+          </div>
+        </div>
+          <div class="col-md-6">
+            <h1 class="fw-bold mb-5">Result Graphs</h1>
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                  {% load static %}
+                <img src="{% static 'images/sample-3.jpg' %}"  id="imgmod" class="img-fluid rounded-3"> 
+                <p class="text-center fw-bold mb-4" id="gender1">{{gender}} {{age1}}</p>
+              </div>
+              <div class="col-md-4 mb-4">
+                  {% load static %}
+                <img src="{% static 'images/Spectrum.png' %}" alt="Sample 2" class="img-fluid rounded-3">
+              </div>
+              <div class="col-md-4 mb-4">
+                  {% load static %}
+                <img src="{% static 'images/Signal.png' %}" alt="Sample 3" class="img-fluid rounded-3">
+          </div>
+          {% load static %}<script>
+            // Define an array of image sources
+            var imageSources = [
+            {src:"{% static 'images/sample-1.jpg' %}",
+          caption:"Male age: 21"},
+            {src:"{% static 'images/sample-2.jpg' %}",
+          caption: "Female age 18"},
+            {src:"{% static 'images/sample-3.jpg' %}",
+          caption: "Female age 30"},
+            {src:"{% static 'images/sample-4.jpg' %}",
+          caption: "Male age 34"},
+            {src:"{% static 'images/sample-5.jpg' %}",
+          caption: "Female age 16"},
+            {src:"{% static 'images/sample-6.jpg' %}",
+          caption: "Female age 28"},
+            {src:"{% static 'images/sample-7.jpg' %}",
+          caption: "Female age 26"},
+            {src:"{% static 'images/sample-8.jpg' %}",
+          caption: "Male age 38"},
+            {src:"{% static 'images/sample-9.jpg' %}",
+          caption: "Female age 31"},
+            {src:"{% static 'images/sample-10.jpg' %}",
+          caption: "Female age 20"},
+            {src:"{% static 'images/sample-11.jpg' %}",
+          caption: "Female age 22"},
+            {src:"{% static 'images/sample-12.jpg' %}",
+          caption: "Male age 41"},
+            {src:"{% static 'images/sample-13.jpg' %}",
+          caption: "Male age 43"},
+            {src:"{% static 'images/sample-14.jpg' %}",
+          caption: "Male age 18"},
+            {src:"{% static 'images/sample-15.jpg' %}",
+          caption: "Female age 18"},
+            {src:"{% static 'images/sample-16.jpg' %}",
+          caption: "Male age 26"},
+            {src:"{% static 'images/sample-17.jpg' %}",
+          caption: "Male age 56"},
+            {src:"{% static 'images/sample-18.jpg' %}",
+          caption: "Female age 12"},
+            {src:"{% static 'images/sample-19.jpg' %}",
+          caption: "Male age 27"},
+            {src:"{% static 'images/sample-20.jpg' %}",
+          caption: "Male age 35"},
+            {src:"{% static 'images/sample-21.jpg' %}",
+          caption: "Male age 14"},
+            
+          ];
+          
+          var images = document.getElementById("imgmod")
+          var gender1 = document.getElementById('gender1').innerHTML;
+          //const regex1 = /\d*\d/;
+          const regex2 = /\w/;
+          //var gender_age=regex1.exec(gender1)[0]
+          var gender_name=regex2.exec(gender1)[0]
+          if(gender_name=="F") { 
+          images.src = "{% static 'images/sample-10.jpg' %}";
+          }
+          
+          if(gender_name=="M") { 
+          images.src = "{% static 'images/sample-4.jpg' %}";
+          }
+          
+        </script>
+
+      </div>
+    </div>
+  </body>
+</html>

@@ -16,8 +16,15 @@ Including another URLconf
 from django.urls import path
 from recognizer.views import gender_prediction
 from recognizer.views import about
+from recognizer.views import gender_voice
+
 urlpatterns = [
     path('gender_prediction/', gender_prediction, name='gender_prediction'),
+    path('gender_prediction/gender_prediction', gender_prediction, name='gender_prediction'),
+    path('gender_voice/', gender_voice, name='gender_voice'),
+    path('gender_voice/gender_voice', gender_voice, name='gender_voice'),
+    #path('gender_voice/gender_prediction', gender_prediction, name='gender_prediction'),
+    path('gender_prediction/gender_voice', gender_voice, name='gender_voice'),
     path('about',about, name='about'),
     path('',about, name='about'),
 ]
